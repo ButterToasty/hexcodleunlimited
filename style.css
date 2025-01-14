@@ -1,0 +1,106 @@
+body{
+    background-image: url("newbg2.png");
+    background-size: 1.5%;
+    object-fit: fill;
+}
+
+#colorBlock{
+    width: 200px;
+    height: 200px;
+    background-color: white;
+    border: groove black 4px;
+
+
+}
+#answerBlock{
+    width: 200px;
+    height: 200px;
+    border: groove black 4px;
+}
+#hexcodeGuess{
+    margin: auto;
+    text-align: center;
+    background-color: beige;
+    border-radius: 10%;
+    border: solid black 3px;
+    width: 20%;
+    font-size: x-large;
+}
+#prevGuess{
+    margin: auto;
+    text-align: center;
+    background-color: beige;
+    border-radius: 10%;
+    border: solid black 3px;
+    width: 20%;
+    font-size: x-large;
+}
+.prevGuesses{
+    margin: auto;
+    text-align: center;
+    background-color: beige;
+    border-radius: 10%;
+    border: solid black 3px;
+    width: 20%;
+    font-size: x-large;
+}
+.sa{
+    color:red;
+}
+.keypadItem{
+    border: solid 4px black;
+    border-radius: 5%;
+    transition: filter 0.4s;
+    background-color: white;
+    padding: 2%;
+
+
+}
+.keypadItem:hover{
+    filter:grayscale(30%);
+}
+
+#colorWrapper{
+    border-radius: 0.5%;
+    background-color: rgb(255, 227, 194);
+    width: 80%;
+    height: 120%;
+    justify-content: center;
+    display: flex;
+    gap: 10%;
+    margin: auto;
+    padding: 5%;
+}
+#keypadWrapper{
+   background-color: tan;
+   margin:auto;
+   width: 80%;
+   padding: 5%;
+}
+
+.keypadLet{
+    text-align:center;
+    display: grid;
+    margin: auto;
+    grid-template-columns: auto auto auto auto auto auto;
+    row-gap: 10px;
+    column-gap: 10px;
+}
+.keypadNum{
+    text-align:center;
+    display: grid;
+    margin: auto;
+    grid-template-columns: auto auto auto auto auto auto auto auto auto auto;
+    row-gap: 10px;
+    column-gap: 10px;
+
+}
+
+.keypadExtra{
+    text-align:center;
+    display: grid;
+    margin: auto;
+    grid-template-columns: auto auto;
+    row-gap: 10px;
+    column-gap: 10px;
+}
