@@ -3,12 +3,16 @@ const colorBlock = document.getElementById("colorBlock");
 const answerBlock = document.getElementById("answerBlock");
 const mainButtons = document.getElementsByClassName("mainButtons");
 const prevGuesses = document.getElementsByClassName("prevGuesses");
+const resultGuesses = document.getElementsByClassName("resultGuesses");
 const submitButton = document.getElementById("submit");
 const deleteButton = document.getElementById("delete");
 const hexcodeGuess = document.getElementById("hexcodeGuess"); 
-const subHexCode = "FF0000";
+const resultsScreen = document.getElementById("resultsScreen");
+const resultText = document.getElementById("resultText");
+let rowTracker = 0;
 let attemptCounter = 0;
-const keypadStorage = ["F", "E", "D", "C", "B", "A", "9", "8", "7", "6", "5", "4", "3", "2", "1", "0"];
+let correctCounter = 0;
+const keypadStorage = ["0" ,"1" ,"2" ,"3" ,"4" ,"5" ,"6" ,"7" ,"8" ,"9" ,"A" ,"B" ,"C" ,"D" ,"E" ,"F"];
 const hexCode = [];
 const guessStorage = [];
 const prevHexCode = [];
@@ -57,37 +61,66 @@ zeroButton.addEventListener("click", displayDate);
 
 
 randomizeColor();
-function attemptCheck (){
-  answerBlock.innerHTML="";
-  for(let i = 0; i < 6; i++){
-    if(prevHexCode[i] == hexCode[i]){
-      answerBlock.innerHTML += "✅";
-        }
-    else{
-      answerBlock.innerHTML += "❌"
-    }
-    
-  }
-}
 
 function attemptAdd (){
-  attemptCounter+=1;
+  
+  correctCounter=0;
+  answerBlock.innerHTML="";
+  colorBlock.style.backgroundColor = "#";
+  
   for(let i = 0; i < 6; i++){
     prevHexCode.push(guessStorage[i]);
-  }
-  colorBlock.style.backgroundColor = "#"+ prevHexCode.join("");
-  prevGuesses[attemptCounter-1].innerHTML="#"+ prevHexCode.join("");
-  attemptCheck();
-  for(let i = 0; i < 6; i++){
+    prevGuesses[i+rowTracker].innerHTML= prevHexCode.join("");
+    colorBlock.style.backgroundColor += prevHexCode.join("");
+    if(prevGuesses[i+rowTracker].innerHTML == hexCode[i]){
+      prevGuesses[i+rowTracker].style.backgroundColor = "lime";
+      correctCounter +=1;
+        }
+
+        else if(Math.abs(keypadStorage.indexOf(prevGuesses[i+rowTracker].innerHTML) - keypadStorage.indexOf(hexCode[i])) < 3 ){
+          prevGuesses[i+rowTracker].style.backgroundColor = "yellow";
+            }
+   
+    else{
+      prevGuesses[i+rowTracker].style.backgroundColor = "red";
+
+    }
+    
+    if(correctCounter==6){
+      resultText.innerHTML="I'M LOCKED IN";
+      resultsScreen.style.visibility="visible";
+    }
+    else{
+      resultText.innerHTML = "Sorry, The Correct Hex Code Was" +" #" + hexCode.join("");
+    }
+    resultGuesses[attemptCounter].innerHTML += prevGuesses[i+rowTracker].innerHTML;
+    
     prevHexCode.pop();
+
+  prevGuesses[i+rowTracker].style.visibility="visible";
+  prevGuesses[i+rowTracker].style.opacity="1";
+  }
+  attemptCounter+=1;
+  /*
+  for(let i = 0; i < 6; i++){
+  prevGuesses[i].innerHTML="#"+ prevHexCode.join("");
+  prevGuesses[i].style.visibility="visible";
+  prevGuesses[i].style.visibility="1";
+  }
+  */
+ 
+  for(let i = 0; i < 6; i++){
     guessStorage.pop();
   }
+  rowTracker+=6;
 }
+
 
 function attemptCounterAlert (){
   attemptAdd();
   if (attemptCounter > 5){
     answerBlock.style.backgroundColor="white";
+    resultsScreen.style.visibility="visible";
     }
 }
 
@@ -136,7 +169,7 @@ document.addEventListener("keydown", function(fl){
     
 
   }
-  if (key == "Backspace" && attemptCounter < 5){
+  if (key == "Backspace" && attemptCounter < 6){
     guessStorage.pop();
     hexcodeGuess.innerHTML=("#"+ guessStorage.join(""));
   }
